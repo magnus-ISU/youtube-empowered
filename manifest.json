@@ -1,0 +1,14 @@
+{
+	"manifest_version": 2,
+	"name": "Powertube",
+	"version": "0.1",
+	"description": "Changes Youtube's default layout to something more power-user-friendly, adding keyboard shortcuts and functionality",
+	"author": "Magnus Anderson",
+	"content_scripts": [
+		{
+			"matches": ["*://*.youtube.com/*"],
+			"js": ["src/Player.js"],
+			"run_at": "document_end"
+		}
+	]
+}
