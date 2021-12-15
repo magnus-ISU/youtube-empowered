@@ -10,5 +10,10 @@
 			"js": ["src/Player.js"],
 			"run_at": "document_end"
 		}
-	]
+	],
+	"background": {
+		"persistent": false,
+		"scripts": ["src/SetTheaterCookie.js"]
+	},
+	"permissions": ["storage", "cookies", "*://*.youtube.com/*"]
 }

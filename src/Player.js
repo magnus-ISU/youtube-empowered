@@ -5,10 +5,6 @@ document.addEventListener("fullscreenchange", correctTheaterMode);
 // console.log("starting");
 // browser.tabs.insertCSS({code:THEATER_CSS, runAt: "document_start"}).then(() => {console.log("inserted");}, onerror);
 
-// Make the description automatically expanded
-// waitForElm("description").then((elm) => {
-// 	document.getElementById("description").parentElement.remove();
-// });
 
 const THEATER_SIZE = "calc(100vh - 56px)";
 const FULLSCREEN_SIZE = "100vh";
