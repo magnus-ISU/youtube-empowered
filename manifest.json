@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "Youtube Empowered",
 	"version": "0.1",
-	"description": "Changes Youtube's default layout to something more power-user-friendly, adding keyboard shortcuts and functionality",
+	"description": "Tweaks youtube to be more focused and powerful.",
 	"author": "Magnus Anderson",
 	"content_scripts": [
 		{
