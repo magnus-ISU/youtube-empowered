@@ -27,14 +27,13 @@ function createPopupObserver() {
 
 // https://css-tricks.com/styling-based-on-scroll-position/
 function addPopupWhenLeavingViewport(entries) {
-	console.log(entries);
 	if (entries[0].intersectionRatio < options.threshold) {
 		document.body.classList.add("YTempowered-popup");
 	} else {
 		document.body.classList.remove("YTempowered-popup");
-		// We must trigger a resize event as youtube itself hardcodes video size into the <video> element
-		window.dispatchEvent(new Event('resize'));
 	}
+	// We must trigger a resize event as youtube itself hardcodes video size into the <video> element
+	window.dispatchEvent(new Event('resize'));
 }
 
 // https://stackoverflow.com/questions/5525071/how-to-wait-until-an-element-exists#16726669
