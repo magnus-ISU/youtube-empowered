@@ -1,6 +1,13 @@
 ////////////////////// Make the theater container use the full screen /////////////////////////
-// Just a stylesheet
-browser.runtime.sendMessage({ a: "css", css: "/src/BigTheater.css" });
+// Just CSS would be more elegant, however there are two issues. 1: it loads more slowly visually, 2: Sometimes it doesn't apply the first time loading youtube.
+const THEATER_SIZE = "calc(100vh - 56px)";
+const FULLSCREEN_SIZE = "100vh";
+waitForElm("player-theater-container").then(correctTheaterMode);
+document.addEventListener("fullscreenchange", correctTheaterMode);
+function correctTheaterMode() {
+    document.getElementById("player-theater-container").style.maxHeight =
+        document.fullscreenElement ? FULLSCREEN_SIZE : THEATER_SIZE;
+}
 
 ////////////////////// Make the window move to a popup if scrolled down ///////////////////////
 // Observe when the video player moves out of screen and apply a class to the document's body when it does. FloatingPlayer has a rule to show popup when document has that class

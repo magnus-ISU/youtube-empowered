@@ -1,8 +1,0 @@
-ytd-watch-flexy[fullscreen] #player-theater-container.ytd-watch-flexy {
-    /* Important so it overrides the following rule, as I cannot get a :not() selector to work */
-    max-height: 100vh !important;
-}
-ytd-watch-flexy[theater] #player-theater-container.ytd-watch-flexy {
-    /* 56px is the hardcoded height of the Youtube header bar */
-    max-height: calc(100vh - 56px);
-}
