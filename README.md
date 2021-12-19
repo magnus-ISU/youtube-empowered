@@ -4,9 +4,9 @@ The 'Enhancer for Youtube' extension is very useful and powerful, which is why i
 List of features:
  - Videos start in theater mode by default
  - Videos in Theater mode take up the entire viewport
+ - Scrolling down beyond the video playback area shows a mini player that follows you
 
 List of planned features from Enhancer:
- - Scrolling down beyond the video playback area shows a mini player that follows you
  - Prevent autoplay on videos in the background
 
 List of planned features not from Enhancer:
