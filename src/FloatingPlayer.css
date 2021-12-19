@@ -1,0 +1,15 @@
+body.YTempowered-popup .html5-video-player,
+body.YTempowered-popup .html5-main-video {
+	position: fixed !important;
+	/* Position it at the top right, under the header bar */
+	right: 0px !important;
+	top: 56px !important;
+	/* Must be set so the video player doesn't have weird positioning */
+	left: auto !important;
+	bottom: auto !important;
+	/* TODO make this configurable */
+	height: 270px !important;
+	width: 480px !important;
+	/* The index of youtube's default mini player, important to make sure the right-click menu works */
+	z-index: 2025 !important;
+}

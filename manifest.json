@@ -13,7 +13,7 @@
 	],
 	"background": {
 		"persistent": false,
-		"scripts": ["src/SetTheaterCookie.js"]
+		"scripts": ["src/SetTheaterCookie.js", "src/MessageHandler.js"]
 	},
 	"permissions": ["storage", "cookies", "*://*.youtube.com/*"]
 }
