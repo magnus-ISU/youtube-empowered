@@ -46,13 +46,29 @@ function blockAutoplay() {
 		// Make it so that playing the video prevents other tabs from autoplaying, and pausing it allows them to again
 		// This is not *really* an *ideal* implementation, as if we open three tabs, play the first, manually play the second, pause the second, and open the third it will autoplay
 		// However that is not a situation users are likely to encounter, since we assume a user won't manually play a video while another plays in the background anyway
-		video.addEventListener("play", () => browser.runtime.sendMessage({ a: "forbidAutoplay" }));
-		video.addEventListener("pause", () => browser.runtime.sendMessage({ a: "allowAutoplay" }));
+		video.addEventListener("play", () =>
+			browser.runtime.sendMessage({ a: "forbidAutoplay" })
+		);
+		video.addEventListener("pause", () =>
+			browser.runtime.sendMessage({ a: "allowAutoplay" })
+		);
 		// Make it so if a video ends, we can now autoplay more videos
 		document.addEventListener("unload", () =>
 			browser.runtime.sendMessage({ a: "allowAutoplay" })
 		);
 		// Ask the background service if we should autoplay the current video
+		// Ask the background service if we should autoplay the current video
+		browser.runtime.sendMessage({ a: "autoplay?" }).then((response) => {
+			console.log(response);
+			// If we should not autoplay, pause the playback
+			if (false === response) {
+				console.log(video);
+				// TODO find some better way to find out when exactly to pause the video. This can play some of the beginning of a video or not pause if it takes a while to load
+				setTimeout(() => {
+					video.pause();
+				}, 1000);
+			}
+		});
 	}
 	// Set a listener to allow or disallow autoplay whenever a video pauses/plays
 	// TODO test video end, tab closed
