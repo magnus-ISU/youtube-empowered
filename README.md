@@ -12,6 +12,7 @@ List of planned features from Enhancer:
 List of planned features not from Enhancer:
  - Keyboard navigation for comments, like RES
  - Have a way to show only comments below a video, only the description, or only recommendations; like NewPipe
+ - Click extension icon to show the video's thumbnail
 
 List of features that will not be added:
  - Ad-blocker: Use uBlock Origin
