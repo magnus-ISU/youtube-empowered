@@ -40,40 +40,34 @@ function addPopupWhenLeavingViewport(entries) {
 waitForElm("movie_player").then(blockAutoplay);
 
 function blockAutoplay() {
+	// Make this global so we can use it elsewhere, namely in AskPermissionToAutoplay
+	// Or not because we can't use it there anyway?
 	let video = document.getElementById("movie_player").querySelector("video");
 	// Main youtube page has a movie_player with empty video that does nothing. Only do anything if the video is actually intended to play something
 	if (video.src !== "") {
-		// Make it so that playing the video prevents other tabs from autoplaying, and pausing it allows them to again
-		// This is not *really* an *ideal* implementation, as if we open three tabs, play the first, manually play the second, pause the second, and open the third it will autoplay
-		// However that is not a situation users are likely to encounter, since we assume a user won't manually play a video while another plays in the background anyway
-		video.addEventListener("play", () =>
-			browser.runtime.sendMessage({ a: "forbidAutoplay" })
-		);
-		video.addEventListener("pause", () =>
-			browser.runtime.sendMessage({ a: "allowAutoplay" })
-		);
-		// Make it so if a video ends, we can now autoplay more videos
-		document.addEventListener("unload", () =>
-			browser.runtime.sendMessage({ a: "allowAutoplay" })
-		);
-		// Ask the background service if we should autoplay the current video
-		// Ask the background service if we should autoplay the current video
-		browser.runtime.sendMessage({ a: "autoplay?" }).then((response) => {
-			console.log(response);
-			// If we should not autoplay, pause the playback
-			if (false === response) {
-				console.log(video);
-				// TODO find some better way to find out when exactly to pause the video. This can play some of the beginning of a video or not pause if it takes a while to load
-				setTimeout(() => {
-					video.pause();
-				}, 1000);
-			}
-		});
+		// When we start playing the first time, make sure we have permission
+		video.addEventListener("play", askPermissionToAutoplay);
 	}
-	// Set a listener to allow or disallow autoplay whenever a video pauses/plays
-	// TODO test video end, tab closed
-	//message.video.onpause = () => canAutoplay = true;
-	//message.video.onplay = () => canAutoplay = false;
+}
+
+function askPermissionToAutoplay() {
+	let video = document.getElementById("movie_player").querySelector("video");
+	console.log("Starting askPermissionToAutoplay");
+	// Find out from the background script if any other youtube video is playing
+	browser.runtime.sendMessage({ a: "autoplay?" }).then((response) => {
+		console.log("Got response: ", response);
+		// If we should not autoplay, pause the playback
+		if (false === response) {
+			// TODO find some better way to find out when exactly to pause the video. This can play some of the beginning of a video or not pause if it takes a while to load
+			setTimeout(() => {
+				video.pause();
+			}, 500);
+		}
+	});
+	// Remove the event listener: the first time it plays, that's autoplay. From then on it is user interaction
+	// Shouldn't be annoying even if they have regular autoplay-block on too because it permits the play if other tabs aren't already playing, but if there is a better way to implement it I would like to find it
+	console.log("Removing event listener");
+	video.removeEventListener("play", askPermissionToAutoplay);
 }
 
 //////////////// Utility functions that are used to implement functionality ///////////////////
