@@ -1,3 +1,5 @@
+console.log('running')
+console.log(document.location.href)
 ////////////////////// Make the theater container use the full screen /////////////////////////
 // Just CSS would be more elegant, however there are two issues. 1: it loads more slowly visually, 2: Sometimes it doesn't apply the first time loading youtube.
 const THEATER_SIZE = "calc(100vh - 56px)";

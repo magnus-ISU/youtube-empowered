@@ -1,12 +1,13 @@
 {
 	"manifest_version": 2,
 	"name": "Youtube Empowered",
-	"version": "0.4",
+	"version": "0.6",
 	"description": "Tweaks youtube to be more focused and powerful.",
 	"author": "Magnus Anderson",
 	"content_scripts": [
 		{
-			"matches": ["*://*.youtube.com/*"],
+			"matches": ["*://*.youtube.com/watch*"],
+			"exclude_matches": ["*://*.youtube.com/shorts*"],
 			"js": ["src/Player.js"],
 			"run_at": "document_end"
 		}
