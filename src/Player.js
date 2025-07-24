@@ -1,19 +1,22 @@
-console.log('running')
-console.log(document.location.href)
+console.log("running");
+console.log(document.location.href);
 ////////////////////// Make the theater container use the full screen /////////////////////////
 // Just CSS would be more elegant, however there are two issues. 1: it loads more slowly visually, 2: Sometimes it doesn't apply the first time loading youtube.
 const THEATER_SIZE = "calc(100vh - 56px)";
 const FULLSCREEN_SIZE = "100vh";
-waitForElm("player-theater-container").then(correctTheaterMode);
+waitForElm("cinematics-full-bleed-container").then(correctTheaterMode);
 document.addEventListener("fullscreenchange", correctTheaterMode);
 function correctTheaterMode() {
-    document.getElementById("player-theater-container").style.maxHeight =
-        document.fullscreenElement ? FULLSCREEN_SIZE : THEATER_SIZE;
+	setTimeout(() => {
+		const container = document.getElementById("full-bleed-container");
+		container.style.minHeight = document.fullscreenElement
+			? FULLSCREEN_SIZE
+			: THEATER_SIZE;
+	}, 0);
 }
 
 ////////////////////// Make the window move to a popup if scrolled down ///////////////////////
 // Observe when the video player moves out of screen and apply a class to the document's body when it does. FloatingPlayer has a rule to show popup when document has that class
-browser.runtime.sendMessage({ a: "css", css: "/src/FloatingPlayer.css" });
 
 const options = {
 	root: null,
@@ -35,7 +38,7 @@ function addPopupWhenLeavingViewport(entries) {
 		document.body.classList.remove("YTempowered-popup");
 	}
 	// We must trigger a resize event as youtube itself hardcodes video size into the <video> element
-	window.dispatchEvent(new Event('resize'));
+	window.dispatchEvent(new Event("resize"));
 }
 
 // https://stackoverflow.com/questions/5525071/how-to-wait-until-an-element-exists#16726669

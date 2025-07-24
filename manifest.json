@@ -1,5 +1,5 @@
 {
-	"manifest_version": 2,
+	"manifest_version": 3,
 	"name": "Youtube Empowered",
 	"version": "0.6",
 	"description": "Tweaks youtube to be more focused and powerful.",
@@ -9,12 +9,18 @@
 			"matches": ["*://*.youtube.com/watch*"],
 			"exclude_matches": ["*://*.youtube.com/shorts*"],
 			"js": ["src/Player.js"],
+			"css": ["src/FloatingPlayer.css"],
 			"run_at": "document_end"
 		}
 	],
 	"background": {
-		"persistent": false,
-		"scripts": ["src/SetTheaterCookie.js", "src/MessageHandler.js"]
+		"service_worker": "src/background.js"
 	},
-	"permissions": ["storage", "cookies", "*://*.youtube.com/*"]
+	"permissions": ["storage", "cookies"],
+	"host_permissions": ["*://*.youtube.com/*"],
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "{8808836d-eb67-43c4-bb74-5147a2236868}"
+		}
+	}
 }
